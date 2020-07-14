@@ -1412,9 +1412,6 @@ Rect.prototype.contains = function(x, y) {
 			last_mx = mx;
 			last_my = my;
 			gClient.sendArray([{m: "m", x: mx, y: my}]);
-			if(gSeeOwnCursor) {
-				gClient.emit("m", { m: "m", id: gClient.participantId, x: mx, y: my });
-			}
 			var part = gClient.getOwnParticipant();
 			if(part) {
 				part.x = mx;
@@ -1425,7 +1422,21 @@ Rect.prototype.contains = function(x, y) {
 	$(document).mousemove(function(event) {
 		mx = ((event.pageX / $(window).width()) * 100).toFixed(2);
 		my = ((event.pageY / $(window).height()) * 100).toFixed(2);
-    });
+	});
+
+	// Animate cursors
+	setInterval(function() {
+		for(var id in gClient.ppl) {
+			if(!gClient.ppl.hasOwnProperty(id)) continue;
+			var part = gClient.ppl[id];
+			if(part.cursorDiv && (Math.abs(part.x - part.displayX) > 0.1 || Math.abs(part.y - part.displayY) > 0.1)) {
+				part.displayX += (part.x - part.displayX) * 0.225;
+				part.displayY += (part.y - part.displayY) * 0.225;
+				part.cursorDiv.style.left = part.displayX + "%";
+				part.cursorDiv.style.top = part.displayY + "%";
+			}
+		}
+	}, 1000 / 60); /* 60 fps */
     
     setInterval(function() {
 		for(var id in gClient.ppl) {
