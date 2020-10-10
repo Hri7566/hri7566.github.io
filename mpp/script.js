@@ -336,7 +336,7 @@ Rect.prototype.contains = function(x, y) {
 
 	AudioEngineWeb = function() {
 		this.threshold = 1000;
-		this.worker = new Worker("/workerTimer.js");
+		this.worker = new Worker("workerTimer.js");
 		var self = this;
 		this.worker.onmessage = function(event)
 			{
@@ -1181,7 +1181,7 @@ Rect.prototype.contains = function(x, y) {
 	if(channel_id.substr(0, 1) == "/") channel_id = channel_id.substr(1);
 	if(channel_id == "") channel_id = "lobby";
 
-	var wssport = window.location.hostname == "www.multiplayerpiano.com" ? 443 : 8443;
+	var wssport = window.location.hostname == "www.multiplayerpiano.com" ? 443 : 443;
 	var gClient = new Client("wss://" + window.location.hostname + ":" + wssport);
 	gClient.setChannel(channel_id);
 	gClient.start();
