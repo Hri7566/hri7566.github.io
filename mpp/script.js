@@ -1181,8 +1181,8 @@ Rect.prototype.contains = function(x, y) {
 	if(channel_id.substr(0, 1) == "/") channel_id = channel_id.substr(1);
 	if(channel_id == "") channel_id = "lobby";
 
-	var wssport = window.location.hostname == "www.multiplayerpiano.com" ? 443 : 8443;
-	var gClient = new Client("wss://" + "www.multiplayerpiano.com" + ":" + 443);
+	//var wssport = window.location.hostname == "www.multiplayerpiano.com" ? 443 : 8443;
+	var gClient = new Client("wss://hri7566.info:2050");
 	gClient.setChannel(channel_id);
 	gClient.start();
 
